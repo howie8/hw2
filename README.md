@@ -4,7 +4,9 @@ hw2
 ToDo List Manager
 
 Introduction
+
 Personal Digital Assistants (PDA's) like the iPhone, Android, etc. have become commonplace over the past few years. Along with an address book and calendar, one item of software that is commonly provided with PDA's is a ToDo list (or Task list) manager. ToDo list manager software allows the user to create a list of items that they need to complete and acts as a reminder of outstanding tasks. As items on a ToDo list are completed, they can be marked off or deleted. In this project you are to implement a program which allows the user to add, view and manipulate ToDo items.
+
 Stage 0 - Provided Code
 We have provided the program in the directory hw2/src as a base for you to begin the assignment. Notice that it consists of two files hw2.c and tdlist.c, and the header file tdlist.h. Copy these files to your own directory and compile them by typing
 
@@ -39,8 +41,10 @@ Class: (H,M,L or C for High, Medium, Low or Completed)
 Notes: (free-form text which may extend over several lines)
 
 You signal the end of the "Notes" by typing a dot '.' on a line by itself. When you have finished, type 'q' to Quit.
+
 Stage 1 - Writing a Makefile
 Write a Makefile as discussed in Lab 8, so that the program will be re-compiled when you type "make", producing an executable called hw2.
+
 Stage 2 - Adding, checking and listing items
 For Stage 2, you will need to make these modifications to the program:
 
@@ -74,6 +78,7 @@ Notes: get started early;
 don't leave it until the last minute!
 
 After each successful A,F,B,P,L,R,T,D,C,N or U command, your program should either print the entire list of items or the current item, depending on the current printing mode.
+
 Stage 4 - Removing or Changing items
 For Stage 4 you will need to implement these commands:
 
@@ -115,8 +120,10 @@ A compiled solution to the assignment will be provided for you in the executable
 Your program should produce exactly the same output as this executable.
 
 Feel free to copy chunks of code from the list.c program, if you find it helpful.
+
 Groups
 This assignment may be done individually, or in groups of two students. Each group should send an email to cs1917.hw2@cse by 30 September, indicating the names of the group member(s). We will then assign you a group number. If you intend to do the assignment on your own, please send us an email for that as well. If you are working in a group, you are strongly advised to make use of file sharing tools like Apache Subversion or DropBox (which are safer and more convenient that emailing code back and forth to each other).
+
 Submission
 For this project you will need to submit a Makefile as well as program files (.c and .h files).
 
