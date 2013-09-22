@@ -1,23 +1,23 @@
-/**
-   tdlist.c
-
-   Sample program for COMP1917 Computing 1
-
-   Program supplied as a starting point for
-   Assignment 2: ToDo List Manager
-
-   UNSW Session 2, 2013
-*/
+/**********************************************************************
+*   tdlist.c
+*   Chetan Sahai - z3288822
+*   Haoxiang Fei - z3464323
+*
+*   COMP1917 Computing 1
+*   Assignment 2: ToDo List Manager
+*
+*   UNSW Session 2, 2013
+**********************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "tdlist.h"
 
-/**
-   free all the memory occupied by a
+/**********************************************************************
+   Free all the memory occupied by a
    linked list of ToDo items.
-*/
+**********************************************************************/
 void free_list( TDnode *head )
 {
   TDnode *node;

@@ -1,13 +1,13 @@
-/**
-   hw2.c
-
-   Sample program for COMP1917 Computing 1
-
-   Program supplied as a starting point for
-   Assignment 2: ToDo List Manager
-
-   UNSW Session 2, 2013
-*/
+/**********************************************************************
+*   hw2.c
+*   Chetan Sahai - z3288822
+*   Haoxiang Fei - z3464323
+*
+*   COMP1917 Computing 1
+*   Assignment 2: ToDo List Manager
+*
+*   UNSW Session 2, 2013
+**********************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,10 +27,10 @@ void    get_date( Date *d );
 int    scan_date( Date *d );
 int     date_ok(  Date *d );
 
-/**
+/**********************************************************************
    Print the list of commands available to the user,
    and a brief summary of what each command does.
-*/
+**********************************************************************/
 void print_help()
 {
   printf("\n");
@@ -114,10 +114,10 @@ char * get_task( void )
   return( task );
 }
 
-/**
+/**********************************************************************
    Read several lines of text from standard input,
    store them in a string and return a pointer to the string.
-*/
+**********************************************************************/
 char * get_notes( void )
 {
   char buffer[MAX_TEXT];
@@ -155,9 +155,9 @@ char * get_notes( void )
   return( notes );
 }
 
-/**
+/**********************************************************************
    Get class of item from user
-*/
+**********************************************************************/
 int get_class( void )
 {
   char s[MAX_LINE];
@@ -196,10 +196,10 @@ int get_class( void )
   return( class );
 }
 
-/**
+/**********************************************************************
    Get date from standard input;
    if date is invalid, ask the user to re-enter it.
-*/
+**********************************************************************/
 void get_date( Date *d )
 {
   printf("Date:  ");
@@ -208,9 +208,9 @@ void get_date( Date *d )
   }
 }
 
-/**
-   scan date in the format dd/mm/yy
-*/
+/**********************************************************************
+   Scan date in the format dd/mm/yy
+**********************************************************************/
 int scan_date( Date *d )
 {
   char s[MAX_LINE];
@@ -220,9 +220,9 @@ int scan_date( Date *d )
      sscanf(s,"%d/%d/%d",&d->day,&d->month,&d->year)==3);
 }
 
-/**
+/**********************************************************************
    Return 1 if date is valid; 0 otherwise.
-*/
+**********************************************************************/
 int date_ok( Date *d )
 {
   // INSERT CODE HERE

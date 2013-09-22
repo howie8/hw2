@@ -19,5 +19,5 @@ OBJ = $(CSRC:.c=.o)
 hw2: $(OBJ)
 	$(CC) $(CFLAGS) -o hw2 $(OBJ)
 
-clean:
+clean:	hw2
 	rm -f $(OBJ)
