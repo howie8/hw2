@@ -14,20 +14,20 @@ typedef struct tdnode TDnode;
 
 struct date 
 {
-  	int day;
+    int day;
     int month;
     int year;
 };
 
 struct tdnode 
 {
-    char *task;
+    char* task;
     Date  date;
     int   class;
-    char *notes;
-    TDnode *next;
+    char* notes;
+    TDnode* next;
 };
 
-void free_list( TDnode *list );
+void free_list( TDnode* list );
 
 // INSERT NEW FUNCTION PROTOTYPES, AS APPROPRIATE

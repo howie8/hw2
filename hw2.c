@@ -24,7 +24,7 @@ char   *get_task(  void );
 char   *get_notes( void );
 int     get_class( void );
 void    get_date( Date *d );
-int    scan_date( Date *d );
+int     scan_date( Date *d );
 int     date_ok(  Date *d );
 
 /**********************************************************************
@@ -57,9 +57,9 @@ void print_help()
 **********************************************************************/
 TDnode * get_node( void )
 {
-    TDnode * new_node;
+    TDnode* new_node;
 
-    new_node = (TDnode *)malloc( sizeof( TDnode ));
+    new_node = (TDnode*)malloc( sizeof( TDnode ));
     if( new_node == NULL ) {
         printf("Error: could not allocate memory.\n");
         exit( 1 );
@@ -208,7 +208,7 @@ int get_class( void )
     Get date from standard input; if date is invalid, ask the user to 
     re-enter it.
 **********************************************************************/
-void get_date( Date *d )
+void get_date( Date* d )
 {
   printf("Date:  ");
   while( !scan_date( d ) || !date_ok( d )) {
@@ -219,7 +219,7 @@ void get_date( Date *d )
 /**********************************************************************
     Scan date in the format dd/mm/yy
 **********************************************************************/
-int scan_date( Date *d )
+int scan_date( Date* d )
 {
     char s[MAX_LINE];
 
@@ -231,7 +231,7 @@ int scan_date( Date *d )
 /**********************************************************************
     Return 1 if date is valid; 0 otherwise.
 **********************************************************************/
-int date_ok( Date *d )
+int date_ok( Date* d )
 {
     int month_length = 0;
 
@@ -267,8 +267,39 @@ int date_ok( Date *d )
     return 1;
 }
 
-
-// INSERT NEW FUNCTIONS, AS APPROPRIATE
+/**********************************************************************
+    Compare nodes. Returns 1 if later, 0 if earlier or equal
+**********************************************************************/
+int compare( TDnode* node1, TDnode* node2 )
+{
+    if( node1->date->year < node2->date->year ) {
+        return 0;    
+    }
+    else if( node1->date->year > node2->date->year ) {
+        return 1;
+    }
+    else if( node1->date->month < node2->date->month ) {
+        return 0;
+    }
+    else if( node1->date->month > node2->date->month ) {
+        return 1;
+    }
+    else if( node1->date->day < node2->date->day ) {
+        return 0;
+    }
+    else if( node1->date->day > node2->date->day ) {
+        return 1;    
+    }
+    else if( node1->class < node2->class ){
+        return 0;
+    }
+    else if( node1->class > node2->class ){
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
 
 /**********************************************************************
     MAIN FUNCTION
@@ -276,16 +307,16 @@ int date_ok( Date *d )
 
 int main( void )
 {
-    TDnode *list = NULL;
-    //TDnode *node;
+    TDnode* list = NULL;
+    TDnode* node;
     int ch;
     int op;
 
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
 
-        printf("Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): ");
-
+        printf("Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+                                                                    ");
         ch = getchar();
 
         while( !isalpha(ch) &&( ch != '\n' )) {
@@ -300,60 +331,131 @@ int main( void )
         }
 
         switch( op ) {
+            /**********************************************************
+            * Add item
+            **********************************************************/
+            case 'a': case 'A':
+                node = get_node();
+                node->next = NULL;         
 
-            case 'a': case 'A': // Add item
-                //node = get_node();
-                // INSERT CODE HERE
+                // Check for empty list
+                if( list == NULL ){
+                    list = node;                
+                }
+                // Else check if node belongs at start of list
+                else if( compare( node, list ) == 0 ) {
+                    node->next = list;
+                    list = node;
+                }
+                // Else try to insert node in middle or tail
+                else {
+                    TDnode* prev_node = list;
+                    while( 1 ) {
+                        // Check for insertion at tail
+                        if( prev_node->next == NULL ) {
+                            prev_node->next = node;
+                            break;
+                        }
+                        // Check for insertion in middle
+                        else if( compare(node, prev_node->next)==0 ) {
+                            node->next = prev_node->next;
+                            prev_node->next = node;
+                            break;
+                        }
+
+                        // Update pointer
+                        prev_node = prev_node->next;
+                    }
+                }
             break;
 
-            case 'f': case 'F': // move Forward
+            /**********************************************************
+            * move Forward
+            **********************************************************/
+            case 'f': case 'F':
             
             break;
 
-            case 'b': case 'B': // move Back
+            /**********************************************************
+            * move Back
+            **********************************************************/
+            case 'b': case 'B':
         
             break;
 
-            case 'p': case 'P': // Print item
+            /**********************************************************
+            * Print item
+            **********************************************************/
+            case 'p': case 'P':
 
             break;
 
-            case 'l': case 'L': // List items
+            /**********************************************************
+            * List items
+            **********************************************************/
+            case 'l': case 'L':
 
             break;
 
-            case 'r': case 'R': // Remove item
+            /**********************************************************
+            * Remove item
+            **********************************************************/
+            case 'r': case 'R':
 
             break;
 
-            case 't': case 'T': // change Task
+            /**********************************************************
+            * change Task
+            **********************************************************/
+            case 't': case 'T':
 
             break;
 
-            case 'd': case 'D': // change Date
+            /**********************************************************
+            * change Date
+            **********************************************************/
+            case 'd': case 'D':
 
             break;
 
-            case 'c': case 'C': // change Class
+            /**********************************************************
+            * change Class
+            **********************************************************/
+            case 'c': case 'C':
 
             break;
 
-            case 'n': case 'N': // change Notes
+            /**********************************************************
+            * change Notes
+            **********************************************************/
+            case 'n': case 'N':
 
             break;
 
-            case 's': case 'S': // Search
+            /**********************************************************
+            * Search
+            **********************************************************/
+            case 's': case 'S':
         
             break;
 
-            case 'u': case 'U': // Undo
+            /**********************************************************
+            * Undo
+            **********************************************************/
+            case 'u': case 'U':
 
             break;
 
+            /**********************************************************
+            * Help
+            **********************************************************/
             case 'h': case 'H': // Help
                 print_help();
             break;
 
+            /**********************************************************
+            * Quit
+            **********************************************************/
             case 'q': case 'Q': // Quit
                 free_list( list );
                 printf("Bye!\n");
