@@ -20,15 +20,15 @@
 **********************************************************************/
 void free_list( TDnode *head )
 {
-  TDnode *node;
+    TDnode *node;
 
-  while( head != NULL ) {
-    node = head;
-    head = head->next;
-    free( node->task );
-    free( node->notes );
-    free( node );
-  }
+    while( head != NULL ) {
+        node = head;
+        head = head->next;
+        free( node->task );
+        free( node->notes );
+        free( node );
+    }
 }
 
 // INSERT NEW FUNCTIONS, AS APPROPRIATE
