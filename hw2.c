@@ -233,14 +233,46 @@ int scan_date( Date *d )
 **********************************************************************/
 int date_ok( Date *d )
 {
-  // INSERT CODE HERE
+    int month_length = 0;
 
-  return 1;
+    // Initial test
+    if (d->day <= 0 || d->day > 31 || d->month <= 0 || d->month > 12 ) {
+        return 0;
+    }
+
+    // April, June, September, November
+    if (d->month == 4||d->month == 6||d->month == 9||d->month == 11) {
+        month_length = 30;
+    }
+    // February
+    else if (d->month == 2) {
+        // Leap year
+        if ( d->year % 4 == 0 && d->year != 0 ) {
+            month_length = 29;
+        }
+        else {
+            month_length = 28;
+        }
+    }
+    // If input date is in other months.
+    else {
+        month_length = 31;
+    }
+    
+    // Check that day of month is valid.
+    if (d->day > month_length) {
+        return 0;
+    }
+
+    return 1;
 }
 
 
 // INSERT NEW FUNCTIONS, AS APPROPRIATE
 
+/**********************************************************************
+    MAIN FUNCTION
+**********************************************************************/
 
 int main( void )
 {
