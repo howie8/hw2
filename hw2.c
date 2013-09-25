@@ -272,22 +272,22 @@ int date_ok( Date* d )
 **********************************************************************/
 int compare( TDnode* node1, TDnode* node2 )
 {
-    if( node1->date->year < node2->date->year ) {
+    if( node1->date.year < node2->date.year ) {
         return 0;    
     }
-    else if( node1->date->year > node2->date->year ) {
+    else if( node1->date.year > node2->date.year ) {
         return 1;
     }
-    else if( node1->date->month < node2->date->month ) {
+    else if( node1->date.month < node2->date.month ) {
         return 0;
     }
-    else if( node1->date->month > node2->date->month ) {
+    else if( node1->date.month > node2->date.month ) {
         return 1;
     }
-    else if( node1->date->day < node2->date->day ) {
+    else if( node1->date.day < node2->date.day ) {
         return 0;
     }
-    else if( node1->date->day > node2->date->day ) {
+    else if( node1->date.day > node2->date.day ) {
         return 1;    
     }
     else if( node1->class < node2->class ){
@@ -299,6 +299,8 @@ int compare( TDnode* node1, TDnode* node2 )
     else {
         return 0;
     }
+
+    return -1;
 }
 
 /**********************************************************************
@@ -315,8 +317,7 @@ int main( void )
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
 
-        printf("Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
-                                                                    ");
+        printf("Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): ");
         ch = getchar();
 
         while( !isalpha(ch) &&( ch != '\n' )) {
