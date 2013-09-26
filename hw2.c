@@ -236,7 +236,7 @@ int date_ok( Date* d )
     int month_length = 0;
 
     // Initial test
-    if (d->day <= 0 || d->day > 31 || d->month <= 0 || d->month > 12 ) {
+    if (d->day <= 0 || d->day > 31 || d->month <= 0 || d->month > 12 || d->year <= 0) {
         return 0;
     }
 
@@ -247,7 +247,7 @@ int date_ok( Date* d )
     // February
     else if (d->month == 2) {
         // Leap year
-        if ( d->year % 4 == 0 && d->year != 0 ) {
+        if ( d->year % 4 == 0 ) {
             month_length = 29;
         }
         else {
