@@ -236,7 +236,7 @@ int date_ok( Date* d )
     int month_length = 0;
 
     // Initial test
-    if (d->day <= 0 || d->day > 31 || d->month <= 0 || d->month > 12 || d->year <= 0) {
+    if (d->day <= 0 || d->day > 31 || d->month <= 0 || d->month > 12 || d->year < 0 || d->year > 99) {
         return 0;
     }
 
@@ -303,6 +303,46 @@ int compare( TDnode* node1, TDnode* node2 )
     return -1;
 }
 
+/*************************************
+    Prints the current ToDo list.
+**************************************/
+
+void print_list( TDnode* list )
+{
+   TDnode* next_node = list;
+   char class;
+   
+   while( next_node != NULL ){
+      if( next_node == list){
+         printf( "->" );
+      }
+      
+      else{
+         printf( "  " );
+      }
+      
+      if( next_node->class == 1 ){
+         class = 'H';
+      }
+      
+      else if( next_node->class == 2 ){
+         class = 'M';
+      }
+      
+      else if( next_node->class == 3 ){
+         class = 'L';
+      }
+      
+      else if( next_node->class == 4 ){
+         class = 'C';
+      }
+      
+      printf( "%d/%d/%d %c %s\n", next_node->date.day, next_node->date.month, next_node->date.year, class, next_node->task);
+      next_node = next_node->next;
+   }
+}
+
+
 /**********************************************************************
     MAIN FUNCTION
 **********************************************************************/
@@ -368,6 +408,9 @@ int main( void )
                         prev_node = prev_node->next;
                     }
                 }
+                
+                print_list( list );
+                
             break;
 
             /**********************************************************
