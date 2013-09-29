@@ -444,14 +444,30 @@ int main( void )
             * move Forward
             **********************************************************/
             case 'f': case 'F':
-            
+                if( list != NULL && current->next != NULL ){
+                    current = current->next;
+                }
+                
+                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************
             * move Back
             **********************************************************/
             case 'b': case 'B':
-        
+                if( list != NULL && current != list ){
+                    TDnode* prev_node = list;
+                    
+                    while( prev_node->next != current ){
+                        prev_node = prev_node->next;
+                    }
+                    
+                    current = prev_node;
+                }
+                
+                print_list( list, current, toggle );
+                        
             break;
 
             /**********************************************************
