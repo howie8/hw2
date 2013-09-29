@@ -307,38 +307,62 @@ int compare( TDnode* node1, TDnode* node2 )
     Prints the current ToDo list.
 **************************************/
 
-void print_list( TDnode* list )
+void print_list( TDnode* current, int toggle )
 {
-   TDnode* next_node = list;
-   char class;
+   TDnode* next_node = current;
+   char* class[10];
    
-   while( next_node != NULL ){
-      if( next_node == list){
-         printf( "->" );
+   if( toggle == 0 ){
+      while( next_node != NULL ){
+         if( next_node == list){
+            printf( "->" );
+         }
+      
+         else{
+            printf( "  " );
+         }
+      
+         if( next_node->class == 1 ){
+            class = "H";
+         }
+      
+         else if( next_node->class == 2 ){
+            class = "M"";
+         }
+      
+         else if( next_node->class == 3 ){
+            class = "L";
+         }
+      
+         else if( next_node->class == 4 ){
+            class = "C";
+         }
       }
       
-      else{
-         printf( "  " );
-      }
-      
-      if( next_node->class == 1 ){
-         class = 'H';
-      }
-      
-      else if( next_node->class == 2 ){
-         class = 'M';
-      }
-      
-      else if( next_node->class == 3 ){
-         class = 'L';
-      }
-      
-      else if( next_node->class == 4 ){
-         class = 'C';
-      }
-      
-      printf( "%d/%d/%d %c %s\n", next_node->date.day, next_node->date.month, next_node->date.year, class, next_node->task);
+      printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
+      printf( "%s %s\n", class, next_node->task );
       next_node = next_node->next;
+   }
+   
+   if( toggle == 1 ){
+      if( current->class == 1 ){
+         class = "High";
+      }
+      
+      else if( current->class == 2 ){
+         class = "Medium";
+      }
+      
+      else if( current->class == 3 ){
+         class = "Low";
+      }
+      
+      else if( current->class == 4 ){
+         class = "Completed";
+      }
+      
+      printf( "Task: %s\nDate: %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
+      printf( "Class: %s\nNotes: %s\n", class, current->notes );
    }
 }
 
@@ -353,6 +377,7 @@ int main( void )
     TDnode* node;
     int ch;
     int op;
+    int toggle;
 
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
@@ -408,8 +433,8 @@ int main( void )
                         prev_node = prev_node->next;
                     }
                 }
-                
-                print_list( list );
+
+               print_list( list, toggle );
                 
             break;
 
@@ -431,14 +456,16 @@ int main( void )
             * Print item
             **********************************************************/
             case 'p': case 'P':
-
+               toggle = 1;
+               print_list( list, toggle );
             break;
 
             /**********************************************************
             * List items
             **********************************************************/
             case 'l': case 'L':
-
+               toggle = 0;
+               print_list( list, toggle );
             break;
 
             /**********************************************************
