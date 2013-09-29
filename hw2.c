@@ -310,7 +310,7 @@ int compare( TDnode* node1, TDnode* node2 )
 void print_list( TDnode* head, TDnode* current, int toggle )
 {
    TDnode* next_node = head;
-   char* class[10];
+   char* class;
    
    if( toggle == 0 ){
       while( next_node != NULL ){
@@ -327,7 +327,7 @@ void print_list( TDnode* head, TDnode* current, int toggle )
          }
       
          else if( next_node->class == 2 ){
-            class = "M"";
+            class = "M";
          }
       
          else if( next_node->class == 3 ){
@@ -361,7 +361,7 @@ void print_list( TDnode* head, TDnode* current, int toggle )
          class = "Completed";
       }
       
-      printf( "Task: %s\nDate: %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
+      printf( "Task:  %s\nDate:  %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
       printf( "Class: %s\nNotes: %s\n", class, current->notes );
    }
 }
@@ -377,7 +377,7 @@ int main( void )
     TDnode* node;
     int ch;
     int op;
-    int toggle;
+    int toggle = 0;
     TDnode* current = list;
 
     // enter a loop, reading and executing commands from the user
