@@ -307,14 +307,14 @@ int compare( TDnode* node1, TDnode* node2 )
     Prints the current ToDo list.
 **************************************/
 
-void print_list( TDnode* current, int toggle )
+void print_list( TDnode* head, TDnode* current, int toggle )
 {
-   TDnode* next_node = current;
+   TDnode* next_node = head;
    char* class[10];
    
    if( toggle == 0 ){
       while( next_node != NULL ){
-         if( next_node == list){
+         if( next_node == current){
             printf( "->" );
          }
       
@@ -337,11 +337,11 @@ void print_list( TDnode* current, int toggle )
          else if( next_node->class == 4 ){
             class = "C";
          }
-      }
       
-      printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
-      printf( "%s %s\n", class, next_node->task );
-      next_node = next_node->next;
+         printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
+         printf( "%s %s\n", class, next_node->task );
+         next_node = next_node->next;
+      }
    }
    
    if( toggle == 1 ){
@@ -378,6 +378,7 @@ int main( void )
     int ch;
     int op;
     int toggle;
+    TDnode* current = list;
 
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
@@ -434,7 +435,8 @@ int main( void )
                     }
                 }
 
-               print_list( list, toggle );
+               current = node;
+               print_list( list, current, toggle );
                 
             break;
 
@@ -457,7 +459,7 @@ int main( void )
             **********************************************************/
             case 'p': case 'P':
                toggle = 1;
-               print_list( list, toggle );
+               print_list( list, current, toggle );
             break;
 
             /**********************************************************
@@ -465,7 +467,7 @@ int main( void )
             **********************************************************/
             case 'l': case 'L':
                toggle = 0;
-               print_list( list, toggle );
+               print_list( list, current, toggle );
             break;
 
             /**********************************************************
