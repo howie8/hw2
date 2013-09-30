@@ -29,5 +29,7 @@ struct tdnode
 };
 
 void free_list( TDnode* list );
+int compare( TDnode* node1, TDnode* node2 );
+void print_list( TDnode* head, TDnode* current, int toggle );
 
 // INSERT NEW FUNCTION PROTOTYPES, AS APPROPRIATE
