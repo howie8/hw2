@@ -9,31 +9,216 @@
 *   UNSW Session 2, 2013
 **********************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "tdlist.h"
 
 /**********************************************************************
-   Free all the memory occupied by a
-   linked list of ToDo items.
+*   STAGE 2 - Adding, checking and listing items
 **********************************************************************/
-void free_list( TDnode *head )
-{
-    TDnode *node;
 
-    while( head != NULL ) {
-        node = head;
-        head = head->next;
-        free( node->task );
-        free( node->notes );
-        free( node );
+// Return 1 if date is valid; 0 otherwise.
+int date_ok( Date* d )
+{
+    int month_length = 0;
+
+    // Initial test
+    if (d->day <= 0 || d->day > 31 || d->month <= 0 || d->month > 12 || d->year < 0 || d->year > 99) {
+        return 0;
+    }
+
+    // April, June, September, November
+    if (d->month == 4||d->month == 6||d->month == 9||d->month == 11) {
+        month_length = 30;
+    }
+    // February
+    else if (d->month == 2) {
+        // Leap year
+        if ( d->year % 4 == 0 ) {
+            month_length = 29;
+        }
+        else {
+            month_length = 28;
+        }
+    }
+    // If input date is in other months.
+    else {
+        month_length = 31;
+    }
+    
+    // Check that day of month is valid.
+    if (d->day > month_length) {
+        return 0;
+    }
+
+    return 1;
+}
+
+// Compare nodes. Returns 1 if later, 0 if earlier or equal
+int compare( TDnode* node1, TDnode* node2 )
+{
+    if( node1->date.year < node2->date.year ) {
+        return 0;    
+    }
+    else if( node1->date.year > node2->date.year ) {
+        return 1;
+    }
+    else if( node1->date.month < node2->date.month ) {
+        return 0;
+    }
+    else if( node1->date.month > node2->date.month ) {
+        return 1;
+    }
+    else if( node1->date.day < node2->date.day ) {
+        return 0;
+    }
+    else if( node1->date.day > node2->date.day ) {
+        return 1;    
+    }
+    else if( node1->class < node2->class ){
+        return 0;
+    }
+    else if( node1->class > node2->class ){
+        return 1;
+    }
+    else {
+        return 0;
+    }
+
+    return -1;
+}
+
+// Add item
+TDnode * add_node( TDnode* node, TDnode* head )
+{
+    // Check for empty list
+    if( head == NULL ){
+        head = node;                
+    }
+    // Else check if node belongs at start of list
+    else if( compare( node, head ) == 0 ) {
+        node->next = head;
+        head = node;
+    }
+    // Else try to insert node in middle or tail
+    else {
+        TDnode* prev_node = head;
+        while( 1 ) {
+            // Check for insertion at tail
+            if( prev_node->next == NULL ) {
+                prev_node->next = node;
+                break;
+            }
+            // Check for insertion in middle
+            else if( compare(node, prev_node->next)==0 ) {
+                node->next = prev_node->next;
+                prev_node->next = node;
+                break;
+            }
+
+            // Update pointer
+            prev_node = prev_node->next;
+        }
+    }
+
+    return head;
+}
+
+// Prints the current ToDo list.
+void print_list( TDnode* head, TDnode* current, int toggle )
+{
+    if( head != NULL ){
+        TDnode* next_node = head;
+        char* class;
+   
+        if( toggle == 0 ){
+            while( next_node != NULL ){
+                if( next_node == current){
+                    printf( "->" );
+                }
+      
+                else{
+                    printf( "  " );
+                }
+      
+                if( next_node->class == 1 ){
+                   class = "H";
+                }
+            
+                else if( next_node->class == 2 ){
+                    class = "M";
+                }
+         
+                else if( next_node->class == 3 ){
+                    class = "L";
+                }
+         
+                else if( next_node->class == 4 ){
+                    class = "C";
+                }
+      
+                printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
+                printf( "%s %s\n", class, next_node->task );
+                next_node = next_node->next;
+            }
+        }
+   
+        if( toggle == 1 ){
+            if( current->class == 1 ){
+                class = "High";
+            }
+      
+            else if( current->class == 2 ){
+                class = "Medium";
+            }
+      
+            else if( current->class == 3 ){
+                class = "Low";
+            }
+      
+            else if( current->class == 4 ){
+                class = "Completed";
+            }
+      
+            printf( "Task:  %s\nDate:  %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
+            printf( "Class: %s\nNotes: %s\n", class, current->notes );
+        }
     }
 }
 
+/**********************************************************************
+*   STAGE 3 - Navigating the list
+**********************************************************************/
+// Move forward
+TDnode* forward( TDnode* head, TDnode* current )
+{
+    if( head != NULL && current->next != NULL ){
+        current = current->next;
+    }
+    
+    return current;
+}
+
+// Move back
+TDnode* back( TDnode* head, TDnode* current )
+{
+    if( head != NULL && current != head ){
+        TDnode* prev_node = head;
+        
+        while( prev_node->next != current ){
+            prev_node = prev_node->next;
+        }
+                    
+        current = prev_node;
+    }
+
+    return current;   
+}
+/**********************************************************************
+*   STAGE 4 - Removing or Changing items
+**********************************************************************/
+// Remove item
 TDnode* remove_node( TDnode* head, TDnode* current )
 {  
-    if( head != NULL ){
+    if( head != NULL ) {
         if( current == head ){
             head = head->next;
         }
