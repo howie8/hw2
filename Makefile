@@ -1,7 +1,7 @@
 # Makefile
 
 CC = gcc
-CFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror -g
 
 CSRC = hw2.c tdlist.c
 HSRC = tdlist.h

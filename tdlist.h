@@ -8,6 +8,12 @@
 *
 *   UNSW Session 2, 2013
 **********************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define MAX_LINE     128
+#define MAX_TEXT    4096
 
 typedef struct  date  Date;
 typedef struct tdnode TDnode;
@@ -28,9 +34,29 @@ struct tdnode
     TDnode* next;
 };
 
-void free_list( TDnode* list );
-int compare( TDnode* node1, TDnode* node2 );
-void print_list( TDnode* head, TDnode* current, int toggle );
-TDnode* remove_node( TDnode* head, TDnode* current );
+/**********************************************************************
+*   Function prototypes
+**********************************************************************/
 
-// INSERT NEW FUNCTION PROTOTYPES, AS APPROPRIATE
+// Stage 0 - Provided Code
+  void  free_list( TDnode* list );
+  void  print_help();
+TDnode *get_node(  void );
+  char *get_task(  void );
+  char *get_notes( void );
+   int  get_class( void );
+  void  get_date( Date *d );
+   int  scan_date( Date *d );
+   
+// Stage 2 - Adding, checking and listing items
+TDnode *add_node( TDnode* node, TDnode* list );
+   int  date_ok(  Date *d );
+   int  compare( TDnode* node1, TDnode* node2 );
+
+// Stage 3 - Navigating the List
+  void  print_list( TDnode* head, TDnode* current, int toggle );
+TDnode *forward( TDnode* head, TDnode* current);
+TDnode *back( TDnode* head, TDnode* current);
+
+// Stage 4 - Removing or Changing items
+TDnode *remove_node( TDnode* head, TDnode* current );
