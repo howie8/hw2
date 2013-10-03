@@ -205,25 +205,12 @@ int scan_date( Date* d )
         sscanf(s,"%d/%d/%d",&d->day,&d->month,&d->year)==3);
 }
 
-// Free all the memory occupied by a linked list of ToDo items.
-void free_list( TDnode *head )
-{
-    TDnode *node;
-
-    while( head != NULL ) {
-        node = head;
-        head = head->next;
-        free( node->task );
-        free( node->notes );
-        free( node );
-    }
-}
-
 /**********************************************************************
 *   MAIN FUNCTION
 **********************************************************************/
 int main( void )
 {
+    StackNode* stack = NULL;
     TDnode* list = NULL;
     TDnode* node = NULL;
     int ch;
@@ -259,6 +246,7 @@ int main( void )
                 list = add_node( node, list );
 
                 current = node;
+                stack = push( current, head, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -268,6 +256,7 @@ int main( void )
             **********************************************************/
             case 'f': case 'F':
                 current = forward( list, current );
+                stack = push( current, head, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -277,6 +266,7 @@ int main( void )
             **********************************************************/
             case 'b': case 'B':
                 current = back( list, current );
+                stack = push( current, head, op );
                 print_list( list, current, toggle );
                         
             break;
@@ -286,6 +276,7 @@ int main( void )
             **********************************************************/
             case 'p': case 'P':
                toggle = 1;
+               stack = push( current, head, op );
                print_list( list, current, toggle );
             break;
 
@@ -294,6 +285,7 @@ int main( void )
             **********************************************************/
             case 'l': case 'L':
                toggle = 0;
+               stack = push( current, head, op );
                print_list( list, current, toggle );
             break;
 
@@ -320,7 +312,8 @@ int main( void )
                 else{
                     current = current->next;
                 }
-                
+
+                stack = push( current, head, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -330,6 +323,8 @@ int main( void )
             **********************************************************/
             case 't': case 'T':
 
+                stack = push( current, head, op );
+                print_list( list, current, toggle );
             break;
 
             /**********************************************************
@@ -337,6 +332,8 @@ int main( void )
             **********************************************************/
             case 'd': case 'D':
 
+                stack = push( current, head, op );
+                print_list( list, current, toggle );
             break;
 
             /**********************************************************
@@ -344,6 +341,8 @@ int main( void )
             **********************************************************/
             case 'c': case 'C':
 
+                stack = push( current, head, op );
+                print_list( list, current, toggle );
             break;
 
             /**********************************************************
@@ -351,13 +350,16 @@ int main( void )
             **********************************************************/
             case 'n': case 'N':
 
+                stack = push( current, head, op );
+                print_list( list, current, toggle );
             break;
 
             /**********************************************************
             * Search
             **********************************************************/
             case 's': case 'S':
-        
+
+                stack = push( current, head, op );       
             break;
 
             /**********************************************************
@@ -365,6 +367,7 @@ int main( void )
             **********************************************************/
             case 'u': case 'U':
 
+                print_list( list, current, toggle );
             break;
 
             /**********************************************************
@@ -379,6 +382,7 @@ int main( void )
             **********************************************************/
             case 'q': case 'Q': // Quit
                 free_list( list );
+                free_stack( stack );
                 printf("Bye!\n");
             return 0;
 

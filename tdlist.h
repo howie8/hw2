@@ -15,8 +15,9 @@
 #define MAX_LINE     128
 #define MAX_TEXT    4096
 
-typedef struct  date  Date;
-typedef struct tdnode TDnode;
+typedef struct 	    date Date;
+typedef struct    tdnode TDnode;
+typedef struct stacknode StackNode;
 
 struct date 
 {
@@ -27,11 +28,19 @@ struct date
 
 struct tdnode 
 {
-    char* task;
-    Date  date;
-    int   class;
-    char* notes;
+      char* task;
+      Date  date;
+       int  class;
+      char* notes;
     TDnode* next;
+};
+
+struct stacknode
+{
+       TDnode* current;
+         char  command;
+    StackNode* next;
+
 };
 
 /**********************************************************************
@@ -41,22 +50,27 @@ struct tdnode
 // Stage 0 - Provided Code
   void  free_list( TDnode* list );
   void  print_help();
-TDnode *get_node(  void );
-  char *get_task(  void );
-  char *get_notes( void );
+TDnode* get_node(  void );
+  char* get_task(  void );
+  char* get_notes( void );
    int  get_class( void );
   void  get_date( Date *d );
    int  scan_date( Date *d );
    
 // Stage 2 - Adding, checking and listing items
-TDnode *add_node( TDnode* node, TDnode* list );
+TDnode* add_node( TDnode* node, TDnode* list );
    int  date_ok(  Date *d );
    int  compare( TDnode* node1, TDnode* node2 );
 
 // Stage 3 - Navigating the List
   void  print_list( TDnode* head, TDnode* current, int toggle );
-TDnode *forward( TDnode* head, TDnode* current);
-TDnode *back( TDnode* head, TDnode* current);
+TDnode* forward( TDnode* head, TDnode* current);
+TDnode* back( TDnode* head, TDnode* current);
 
 // Stage 4 - Removing or Changing items
-TDnode *remove_node( TDnode* head, TDnode* current );
+TDnode* remove_node( TDnode* head, TDnode* current );
+
+// Stage 6 - Undo
+     void  free_stack( StackNode* head );
+StackNode* push( TDnode* current, StackNode* head, char command );
+StackNode* pop( StackNode* head );

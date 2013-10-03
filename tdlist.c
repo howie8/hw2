@@ -11,6 +11,32 @@
 
 #include "tdlist.h"
 
+// Free all the memory occupied by a linked list of ToDo items.
+void free_list( TDnode* head )
+{
+    TDnode* node;
+
+    while( head != NULL ) {
+        node = head;
+        head = head->next;
+        free( node->task );
+        free( node->notes );
+        free( node );
+    }
+}
+
+// Free all the memory occupied by a stack
+void free_stack( StackNode* head )
+{
+    StackNode* node = head;
+    StackNode* tmp;
+
+    while( node != NULL ) {
+        tmp = node;
+        node = node->next;
+        free( tmp );  
+    }
+}
 /**********************************************************************
 *   STAGE 2 - Adding, checking and listing items
 **********************************************************************/
@@ -87,7 +113,7 @@ int compare( TDnode* node1, TDnode* node2 )
 }
 
 // Add item
-TDnode * add_node( TDnode* node, TDnode* head )
+TDnode* add_node( TDnode* node, TDnode* head )
 {
     // Check for empty list
     if( head == NULL ){
@@ -236,4 +262,87 @@ TDnode* remove_node( TDnode* head, TDnode* current )
     
     return( head );
 }
+
+/**********************************************************************
+*   STAGE 6 - Undo
+**********************************************************************/
+// Push a stack node
+StackNode* push( TDnode* current, StackNode* head, char command )
+{
+    StackNode* new_node = (StackNode*)malloc( sizeof( StackNode ));
+    if( new_node == NULL ) {
+        fprintf( stderr, "Error: memory allocation failed.\n");
+        exit( 1 );
+    }
+    
+    new_node->current = current;
+    new_node->command = command;
+    new_node->next    = head;
+
+    return( new_node );
+}
+
+// Pop a stack node
+StackNode* pop( StackNode* head )
+{
+    StackNode* tmp;
+    
+    if( head != NULL ) {
+        tmp = head;
+        head = head->next;
+        free( tmp );        
+    }    
+    return( head );
+}
+
+// Undo
+void undo( StackNode* head, TDnode* current )
+{
+    int op = head->command;
+
+    switch( op ) {
+        case 'a': case 'A':
+
+        break;
+
+        case 'f': case 'F':
+
+        break;
+        
+        case 'b': case 'B':
+
+        break;
+
+        case 'r': case 'R':
+
+        break;
+
+        case 't': case 'T':
+
+        break;
+
+        case 'd': case 'D':
+
+        break;
+
+        case 'c': case 'C':
+
+        break;
+
+        case 'n': case 'N':
+        
+        break;
+    }
+
+    head = pop( head );
+    current = head->current;
+}
+
+
+
+
+
+
+
+
 // INSERT NEW FUNCTIONS, AS APPROPRIATE
