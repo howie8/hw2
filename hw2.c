@@ -492,30 +492,24 @@ int main( void )
             * Remove item
             **********************************************************/
             case 'r': case 'R':
-                //list = remove_node( list, current );
-                if( list != NULL ){
-                    if( current == list ){
-                        list = list->next;
-                        current = list;
+                list = remove_node( list, current );
+                
+                if( list == NULL ){
+                    current = NULL;
+                }
+        
+                else if( current->next == NULL ){
+                    TDnode* prev_node = list;
+        
+                    while( prev_node->next != NULL ){
+                        prev_node = prev_node->next;
                     }
-        
-                    else{
-                        TDnode* prev_node = list;
-        
-                        while( prev_node->next != current ){
-                            prev_node = prev_node->next;
-                        }
-        
-                        prev_node->next = current->next;
-        
-                        if( current->next == NULL){
-                            current = prev_node;
-                        }
-            
-                        else{
-                             current = prev_node->next;
-                        }
-                    }
+                    
+                    current = prev_node;
+                }
+                
+                else{
+                    current = current->next;
                 }
                 
                 print_list( list, current, toggle );

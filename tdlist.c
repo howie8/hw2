@@ -31,12 +31,11 @@ void free_list( TDnode *head )
     }
 }
 
-/*void remove_node( TDnode* head, TDnode* current )
+TDnode* remove_node( TDnode* head, TDnode* current )
 {  
     if( head != NULL ){
         if( current == head ){
             head = head->next;
-            current = head;
         }
         
         else{
@@ -47,15 +46,9 @@ void free_list( TDnode *head )
             }
         
             prev_node->next = current->next;
-        
-            if( current->next == NULL){
-                current = prev_node;
-            }
-        
-            else{
-                current = prev_node->next;
-            }
         }
     }
-}*/
+    
+    return( head );
+}
 // INSERT NEW FUNCTIONS, AS APPROPRIATE
