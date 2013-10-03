@@ -31,4 +31,24 @@ void free_list( TDnode *head )
     }
 }
 
+TDnode* remove_node( TDnode* head, TDnode* current )
+{  
+    if( head != NULL ){
+        if( current == head ){
+            head = head->next;
+        }
+        
+        else{
+            TDnode* prev_node = head;
+        
+            while( prev_node->next != current ){
+                prev_node = prev_node->next;
+            }
+        
+            prev_node->next = current->next;
+        }
+    }
+    
+    return( head );
+}
 // INSERT NEW FUNCTIONS, AS APPROPRIATE

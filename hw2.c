@@ -309,61 +309,63 @@ int compare( TDnode* node1, TDnode* node2 )
 
 void print_list( TDnode* head, TDnode* current, int toggle )
 {
-   TDnode* next_node = head;
-   char* class;
+    if( head != NULL ){
+        TDnode* next_node = head;
+        char* class;
    
-   if( toggle == 0 ){
-      while( next_node != NULL ){
-         if( next_node == current){
-            printf( "->" );
-         }
+        if( toggle == 0 ){
+            while( next_node != NULL ){
+                if( next_node == current){
+                    printf( "->" );
+                }
       
-         else{
-            printf( "  " );
-         }
+                else{
+                    printf( "  " );
+                }
       
-         if( next_node->class == 1 ){
-            class = "H";
-         }
+                if( next_node->class == 1 ){
+                   class = "H";
+                }
+            
+                else if( next_node->class == 2 ){
+                    class = "M";
+                }
+         
+                else if( next_node->class == 3 ){
+                    class = "L";
+                }
+         
+                else if( next_node->class == 4 ){
+                    class = "C";
+                }
       
-         else if( next_node->class == 2 ){
-            class = "M";
-         }
-      
-         else if( next_node->class == 3 ){
-            class = "L";
-         }
-      
-         else if( next_node->class == 4 ){
-            class = "C";
-         }
-      
-         printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
-         printf( "%s %s\n", class, next_node->task );
-         next_node = next_node->next;
-      }
-   }
+                printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
+                printf( "%s %s\n", class, next_node->task );
+                next_node = next_node->next;
+            }
+        }
    
-   if( toggle == 1 ){
-      if( current->class == 1 ){
-         class = "High";
-      }
+        if( toggle == 1 ){
+            if( current->class == 1 ){
+                class = "High";
+            }
       
-      else if( current->class == 2 ){
-         class = "Medium";
-      }
+            else if( current->class == 2 ){
+                class = "Medium";
+            }
       
-      else if( current->class == 3 ){
-         class = "Low";
-      }
+            else if( current->class == 3 ){
+                class = "Low";
+            }
       
-      else if( current->class == 4 ){
-         class = "Completed";
-      }
+            else if( current->class == 4 ){
+                class = "Completed";
+            }
       
-      printf( "Task:  %s\nDate:  %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
-      printf( "Class: %s\nNotes: %s\n", class, current->notes );
-   }
+            printf( "Task:  %s\nDate:  %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
+            printf( "Class: %s\nNotes: %s\n", class, current->notes );
+        }
+    }
 }
 
 
@@ -490,7 +492,28 @@ int main( void )
             * Remove item
             **********************************************************/
             case 'r': case 'R':
-
+                list = remove_node( list, current );
+                
+                if( list == NULL ){
+                    current = NULL;
+                }
+        
+                else if( current->next == NULL ){
+                    TDnode* prev_node = list;
+        
+                    while( prev_node->next != NULL ){
+                        prev_node = prev_node->next;
+                    }
+                    
+                    current = prev_node;
+                }
+                
+                else{
+                    current = current->next;
+                }
+                
+                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************
