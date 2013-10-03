@@ -256,7 +256,7 @@ int main( void )
                 node = get_node();
                 node->next = NULL;
 
-                list = add_node( node, list );
+                list = add_node( list, node );
 
                 current = node;
                 print_list( list, current, toggle );
@@ -329,28 +329,36 @@ int main( void )
             * change Task
             **********************************************************/
             case 't': case 'T':
-
+                current = change_task( current );                
+                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************
             * change Date
             **********************************************************/
             case 'd': case 'D':
-
+                list = change_date( list, current );             
+                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************
             * change Class
             **********************************************************/
             case 'c': case 'C':
-
+                list = change_class( list, current );             
+                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************
             * change Notes
             **********************************************************/
             case 'n': case 'N':
-
+                current = change_notes( current );                
+                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************
