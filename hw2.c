@@ -246,7 +246,7 @@ int main( void )
                 list = add_node( node, list );
 
                 current = node;
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -256,7 +256,7 @@ int main( void )
             **********************************************************/
             case 'f': case 'F':
                 current = forward( list, current );
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -266,7 +266,7 @@ int main( void )
             **********************************************************/
             case 'b': case 'B':
                 current = back( list, current );
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
                         
             break;
@@ -276,7 +276,7 @@ int main( void )
             **********************************************************/
             case 'p': case 'P':
                toggle = 1;
-               stack = push( current, head, op );
+               stack = push( current, stack, op );
                print_list( list, current, toggle );
             break;
 
@@ -285,7 +285,7 @@ int main( void )
             **********************************************************/
             case 'l': case 'L':
                toggle = 0;
-               stack = push( current, head, op );
+               stack = push( current, stack, op );
                print_list( list, current, toggle );
             break;
 
@@ -313,7 +313,7 @@ int main( void )
                     current = current->next;
                 }
 
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -323,7 +323,7 @@ int main( void )
             **********************************************************/
             case 't': case 'T':
 
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
             break;
 
@@ -332,7 +332,7 @@ int main( void )
             **********************************************************/
             case 'd': case 'D':
 
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
             break;
 
@@ -341,7 +341,7 @@ int main( void )
             **********************************************************/
             case 'c': case 'C':
 
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
             break;
 
@@ -350,7 +350,7 @@ int main( void )
             **********************************************************/
             case 'n': case 'N':
 
-                stack = push( current, head, op );
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
             break;
 
@@ -359,7 +359,7 @@ int main( void )
             **********************************************************/
             case 's': case 'S':
 
-                stack = push( current, head, op );       
+                stack = push( current, stack, op );       
             break;
 
             /**********************************************************
