@@ -58,7 +58,7 @@ TDnode* get_node(  void );
    int  scan_date( Date *d );
    
 // Stage 2 - Adding, checking and listing items
-TDnode* add_node( TDnode* node, TDnode* list );
+TDnode *add_node( TDnode* head, TDnode* node );
    int  date_ok(  Date *d );
    int  compare( TDnode* node1, TDnode* node2 );
 
@@ -68,9 +68,17 @@ TDnode* forward( TDnode* head, TDnode* current);
 TDnode* back( TDnode* head, TDnode* current);
 
 // Stage 4 - Removing or Changing items
+<<<<<<< HEAD
 TDnode* remove_node( TDnode* head, TDnode* current );
 
 // Stage 6 - Undo
      void  free_stack( StackNode* head );
 StackNode* push( TDnode* current, StackNode* head, char command );
 StackNode* pop( StackNode* head );
+=======
+TDnode *remove_node( TDnode* head, TDnode* current );
+TDnode *change_task( TDnode* current );
+TDnode *change_notes( TDnode* current );
+TDnode *change_date( TDnode* head, TDnode* current );
+TDnode *change_class( TDnode* head, TDnode* current );
+>>>>>>> 06ec3985ad77f5afeed11365bdc0d301cf4b7197

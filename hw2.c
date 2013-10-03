@@ -322,36 +322,60 @@ int main( void )
             * change Task
             **********************************************************/
             case 't': case 'T':
+<<<<<<< HEAD
 
                 stack = push( current, stack, op );
                 print_list( list, current, toggle );
+=======
+                current = change_task( current );                
+                print_list( list, current, toggle );
+                
+>>>>>>> 06ec3985ad77f5afeed11365bdc0d301cf4b7197
             break;
 
             /**********************************************************
             * change Date
             **********************************************************/
             case 'd': case 'D':
+<<<<<<< HEAD
 
                 stack = push( current, stack, op );
                 print_list( list, current, toggle );
+=======
+                list = change_date( list, current );             
+                print_list( list, current, toggle );
+                
+>>>>>>> 06ec3985ad77f5afeed11365bdc0d301cf4b7197
             break;
 
             /**********************************************************
             * change Class
             **********************************************************/
             case 'c': case 'C':
+<<<<<<< HEAD
 
                 stack = push( current, stack, op );
                 print_list( list, current, toggle );
+=======
+                list = change_class( list, current );             
+                print_list( list, current, toggle );
+                
+>>>>>>> 06ec3985ad77f5afeed11365bdc0d301cf4b7197
             break;
 
             /**********************************************************
             * change Notes
             **********************************************************/
             case 'n': case 'N':
+<<<<<<< HEAD
 
                 stack = push( current, stack, op );
                 print_list( list, current, toggle );
+=======
+                current = change_notes( current );                
+                print_list( list, current, toggle );
+                
+>>>>>>> 06ec3985ad77f5afeed11365bdc0d301cf4b7197
             break;
 
             /**********************************************************

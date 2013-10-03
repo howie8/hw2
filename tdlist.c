@@ -113,7 +113,7 @@ int compare( TDnode* node1, TDnode* node2 )
 }
 
 // Add item
-TDnode* add_node( TDnode* node, TDnode* head )
+TDnode * add_node( TDnode* head, TDnode* node )
 {
     // Check for empty list
     if( head == NULL ){
@@ -131,6 +131,7 @@ TDnode* add_node( TDnode* node, TDnode* head )
             // Check for insertion at tail
             if( prev_node->next == NULL ) {
                 prev_node->next = node;
+                node->next = NULL;
                 break;
             }
             // Check for insertion in middle
@@ -260,7 +261,47 @@ TDnode* remove_node( TDnode* head, TDnode* current )
         }
     }
     
-    return( head );
+    return head ;
+}
+
+TDnode *change_task( TDnode* current )
+{
+    if( current != NULL ){
+        current->task = get_task();
+    }
+           
+    return current;
+}
+
+TDnode *change_notes( TDnode* current )
+{
+    if( current != NULL ){
+        current->notes = get_notes(); 
+    }
+      
+    return current;
+}
+
+TDnode *change_date( TDnode* head, TDnode* current )
+{
+    if( current != NULL ){
+        head = remove_node( head, current );
+        get_date( &current->date );
+        head = add_node( head, current );
+    }
+     
+    return head;
+}
+
+TDnode *change_class( TDnode* head, TDnode* current )
+{
+    if( current != NULL ){
+        head = remove_node( head, current );
+        current->class = get_class();
+        head = add_node( head, current );
+    }
+     
+    return head;
 }
 
 /**********************************************************************
@@ -279,7 +320,7 @@ StackNode* push( TDnode* current, StackNode* head, char command )
     new_node->command = command;
     new_node->next    = head;
 
-    return( new_node );
+    return new_node;
 }
 
 // Pop a stack node
@@ -292,7 +333,7 @@ StackNode* pop( StackNode* head )
         head = head->next;
         free( tmp );        
     }    
-    return( head );
+    return head;
 }
 
 // Undo
