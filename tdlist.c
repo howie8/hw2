@@ -108,8 +108,6 @@ int compare( TDnode* node1, TDnode* node2 )
     else {
         return 0;
     }
-
-    return -1;
 }
 
 // Add item
@@ -303,6 +301,11 @@ TDnode *change_class( TDnode* head, TDnode* current )
      
     return head;
 }
+
+/**********************************************************************
+*   STAGE 5 - Searching the list
+**********************************************************************/
+
 
 /**********************************************************************
 *   STAGE 6 - Undo

@@ -243,7 +243,7 @@ int main( void )
                 node = get_node();
                 node->next = NULL;
 
-                list = add_node( node, list );
+                list = add_node( list, node );
 
                 current = node;
                 stack = push( current, stack, op );
@@ -375,6 +375,7 @@ int main( void )
             **********************************************************/
             case 'h': case 'H': // Help
                 print_help();
+                stack = push( current, stack, op );
             break;
 
             /**********************************************************

@@ -74,6 +74,8 @@ TDnode *change_notes( TDnode* current );
 TDnode *change_date( TDnode* head, TDnode* current );
 TDnode *change_class( TDnode* head, TDnode* current );
 
+// Stage 5 - Searching the list
+
 // Stage 6 - Undo
      void  free_stack( StackNode* head );
 StackNode* push( TDnode* current, StackNode* head, char command );
