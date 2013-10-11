@@ -40,6 +40,7 @@ struct stacknode
        TDnode* current;
          char  command;
     StackNode* next;
+       TDnode  data;
 
 };
 
@@ -80,3 +81,4 @@ TDnode *change_class( TDnode* head, TDnode* current );
      void  free_stack( StackNode* head );
 StackNode* push( TDnode* current, StackNode* head, char command );
 StackNode* pop( StackNode* head );
+   TDnode* undo( StackNode* stack, TDnode* list, TDnode* current );

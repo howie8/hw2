@@ -218,6 +218,8 @@ int main( void )
     int toggle = 0;
     TDnode* current = list;
 
+    stack = push( current, stack, '\0' );
+
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
 
@@ -366,7 +368,11 @@ int main( void )
             * Undo
             **********************************************************/
             case 'u': case 'U':
-
+                if( list != NULL ) {
+                    list = undo( stack, list, current );
+                    stack = pop( stack );
+                    current = stack->current;
+                }
                 print_list( list, current, toggle );
             break;
 

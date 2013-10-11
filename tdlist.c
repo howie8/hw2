@@ -163,7 +163,7 @@ void print_list( TDnode* head, TDnode* current, int toggle )
                 else{
                     printf( "  " );
                 }
-      
+
                 if( next_node->class == 1 ){
                    class = "H";
                 }
@@ -318,10 +318,17 @@ StackNode* push( TDnode* current, StackNode* head, char command )
         fprintf( stderr, "Error: memory allocation failed.\n");
         exit( 1 );
     }
-    
+
     new_node->current = current;
     new_node->command = command;
     new_node->next    = head;
+    
+    if( current != NULL ) {
+        new_node->data.task  = current->task;
+        new_node->data.date  = current->date;
+        new_node->data.class = current->class;
+        new_node->data.notes = current->notes;
+    }
 
     return new_node;
 }
@@ -340,46 +347,47 @@ StackNode* pop( StackNode* head )
 }
 
 // Undo
-void undo( StackNode* head, TDnode* current )
+TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
 {
-    int op = head->command;
+    if( stack->command != 0 ) {
+        int op = stack->command;
 
-    switch( op ) {
-        case 'a': case 'A':
+        switch( op ) {
+            case 'a': case 'A':
+                list = remove_node( list, current );
+            break;
 
-        break;
+            case 'f': case 'F':
 
-        case 'f': case 'F':
+            break;
+            
+            case 'b': case 'B':
 
-        break;
-        
-        case 'b': case 'B':
+            break;
 
-        break;
+            case 'r': case 'R':
 
-        case 'r': case 'R':
+            break;
 
-        break;
+            case 't': case 'T':
 
-        case 't': case 'T':
+            break;
 
-        break;
+            case 'd': case 'D':
 
-        case 'd': case 'D':
+            break;
 
-        break;
+            case 'c': case 'C':
 
-        case 'c': case 'C':
+            break;
 
-        break;
-
-        case 'n': case 'N':
-        
-        break;
+            case 'n': case 'N':
+            
+            break;
+        }
     }
 
-    head = pop( head );
-    current = head->current;
+    return list;
 }
 
 
