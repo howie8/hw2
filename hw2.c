@@ -257,20 +257,22 @@ int main( void )
             * move Forward
             **********************************************************/
             case 'f': case 'F':
-                current = forward( list, current );
+                if(current != forward( list, current )) {
+                    current = forward( list, current );
+                    print_list( list, current, toggle );
+                };
                 stack = push( current, stack, op );
-                print_list( list, current, toggle );
-                
             break;
 
             /**********************************************************
             * move Back
             **********************************************************/
             case 'b': case 'B':
-                current = back( list, current );
+                if(current != back( list, current )) {
+                    current = back( list, current );
+                    print_list( list, current, toggle );
+                };
                 stack = push( current, stack, op );
-                print_list( list, current, toggle );
-                        
             break;
 
             /**********************************************************
@@ -368,12 +370,13 @@ int main( void )
             * Undo
             **********************************************************/
             case 'u': case 'U':
-                if( list != NULL ) {
+                if( list != NULL ){
                     list = undo( stack, list, current );
                     stack = pop( stack );
                     current = stack->current;
+                    print_list( list, current, toggle );
                 }
-                print_list( list, current, toggle );
+                
             break;
 
             /**********************************************************

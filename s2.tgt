@@ -1,0 +1,12 @@
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Re-enter date in format dd/mm/yy: Re-enter date in format dd/mm/yy: Re-enter date in format dd/mm/yy: Re-enter date in format dd/mm/yy: Class: Notes: 
+
+->01/01/14 M buy wedding dress
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Re-enter date in format dd/mm/yy: Class: Notes: 
+
+  01/01/14 M buy wedding dress
+->29/02/16 H propose to John
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Bye!

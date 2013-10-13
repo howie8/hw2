@@ -153,7 +153,8 @@ void print_list( TDnode* head, TDnode* current, int toggle )
     if( head != NULL ){
         TDnode* next_node = head;
         char* class;
-   
+    
+        printf("\n\n");
         if( toggle == 0 ){
             while( next_node != NULL ){
                 if( next_node == current){
@@ -180,7 +181,7 @@ void print_list( TDnode* head, TDnode* current, int toggle )
                     class = "C";
                 }
       
-                printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
+                printf( "%02d/%02d/%02d ", next_node->date.day, next_node->date.month, next_node->date.year );
                 printf( "%s %s\n", class, next_node->task );
                 next_node = next_node->next;
             }
@@ -203,9 +204,10 @@ void print_list( TDnode* head, TDnode* current, int toggle )
                 class = "Completed";
             }
       
-            printf( "Task:  %s\nDate:  %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
+            printf( "Task:  %s\nDate:  %02d/%02d/%02d\n", current->task, current->date.day, current->date.month, current->date.year );
             printf( "Class: %s\nNotes: %s\n", class, current->notes );
         }
+        printf("\n");
     }
 }
 
@@ -349,7 +351,7 @@ StackNode* pop( StackNode* head )
 // Undo
 TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
 {
-    if( stack->command != 0 ) {
+    if( stack->command != '\0' ) {
         int op = stack->command;
 
         switch( op ) {
@@ -358,40 +360,46 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
             break;
 
             case 'f': case 'F':
-
+                current = back( list, current );
             break;
             
             case 'b': case 'B':
-
+                current = forward( list, current );
             break;
 
             case 'r': case 'R':
-
+                current = stack->next->current;
+                list = add_node( list, current );
             break;
 
             case 't': case 'T':
-
+                list = remove_node( list, current );
+                current->task = stack->next->data.task;
+                list = add_node( list, current );
             break;
 
             case 'd': case 'D':
-
+                list = remove_node( list, current );
+                current->date = stack->next->data.date;
+                list = add_node( list, current );
             break;
 
             case 'c': case 'C':
-
+                list = remove_node( list, current );
+                current->class = stack->next->data.class;
+                list = add_node( list, current );
             break;
 
             case 'n': case 'N':
-            
+                list = remove_node( list, current );
+                current->notes = stack->next->data.notes;
+                list = add_node( list, current );
             break;
         }
     }
 
     return list;
 }
-
-
-
 
 
 
