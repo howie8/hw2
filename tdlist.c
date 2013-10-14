@@ -19,8 +19,6 @@ void free_list( TDnode* head )
     while( head != NULL ) {
         node = head;
         head = head->next;
-        free( node->task );
-        free( node->notes );
         free( node );
     }
 }
@@ -252,11 +250,10 @@ TDnode* remove_node( TDnode* head, TDnode* current )
         
         else{
             TDnode* prev_node = head;
-        
+           
             while( prev_node->next != current ){
                 prev_node = prev_node->next;
             }
-        
             prev_node->next = current->next;
         }
     }
@@ -360,16 +357,25 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
             break;
 
             case 'f': case 'F':
-                current = back( list, current );
+                if( current == stack->next->current ) {
+                    return NULL;
+                }
+                else {
+                    current = back( list, current );
+                }
             break;
             
             case 'b': case 'B':
-                current = forward( list, current );
+                if( current == stack->next->current ) {
+                    return NULL;
+                }
+                else {
+                    current = forward( list, current );
+                }
             break;
 
             case 'r': case 'R':
-                current = stack->next->current;
-                list = add_node( list, current );
+
             break;
 
             case 't': case 'T':
@@ -394,6 +400,10 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
                 list = remove_node( list, current );
                 current->notes = stack->next->data.notes;
                 list = add_node( list, current );
+            break;
+            
+            default:
+
             break;
         }
     }

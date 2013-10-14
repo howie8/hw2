@@ -371,12 +371,33 @@ int main( void )
             **********************************************************/
             case 'u': case 'U':
                 if( list != NULL ){
-                    list = undo( stack, list, current );
-                    stack = pop( stack );
-                    current = stack->current;
-                    print_list( list, current, toggle );
+                    TDnode* undone = undo( stack, list, current );
+                    if( undone == NULL ) {
+                        stack = pop( stack );
+                        current = stack->current;
+                    }
+                    else {                    
+                        list = undone;
+                        if( stack->command=='r'||stack->command=='R') {
+                            TDnode* new_node = (TDnode*)malloc(sizeof(TDnode));
+
+                            new_node->task = stack->next->data.task;
+                            new_node->date = stack->next->data.date;
+                            new_node->class = stack->next->data.class;
+                            new_node->notes = stack->next->data.notes;
+
+                            list = add_node( list, new_node );
+                            current = new_node;
+
+                            stack = pop( stack );
+                        }
+                        else {
+                            stack = pop( stack );
+                            current = stack->current;
+                        }
+                        print_list( list, current, toggle );
+                    }
                 }
-                
             break;
 
             /**********************************************************

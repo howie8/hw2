@@ -20,10 +20,10 @@ OBJ = $(CSRC:.c=.o)
 hw2: $(OBJ)
 	$(CC) $(CFLAGS) -o hw2 $(OBJ)
 
-clean:	hw2
-	rm -f $(OBJ)
+clean:	
+	rm -f $(OBJ) core
 
-test:	hw2
+test:	
 	./hw2 < s1.in > s1.out
 	./hw2 < s2.in > s2.out
 	./hw2 < s3.in > s3.out
