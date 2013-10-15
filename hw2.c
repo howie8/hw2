@@ -217,6 +217,7 @@ int main( void )
     int op;
     int toggle = 0;
     TDnode* current = list;
+    char *search_text;
 
     stack = push( current, stack, '\0' );
 
@@ -362,9 +363,10 @@ int main( void )
             /**********************************************************
             * Search
             **********************************************************/
-            case 's': case 'S':
-
-                stack = push( current, stack, op );       
+             case 's': case 'S':                    
+                search_text = store_text();
+                
+                search( list, search_text );
             break;
 
             /**********************************************************
