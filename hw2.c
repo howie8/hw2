@@ -230,6 +230,7 @@ int main( void )
     int op;
     int toggle = 0;
     TDnode* current = list;
+    char *search_text;
 
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
@@ -364,8 +365,11 @@ int main( void )
             /**********************************************************
             * Search
             **********************************************************/
-            case 's': case 'S':
-        
+            case 's': case 'S':                    
+                search_text = store_text();
+                
+                search( list, search_text );
+                
             break;
 
             /**********************************************************

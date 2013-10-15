@@ -277,4 +277,136 @@ TDnode *change_class( TDnode* head, TDnode* current )
      
     return head;
 }
+
+/**********************************************************************
+*   STAGE 5 - Searching the list
+**********************************************************************/
+// Store search text into a string
+char *store_text( void )
+{
+    char buffer[MAX_TEXT];
+    char *search;
+    int length;
+    int ch;
+    int i;
+
+    // prompt user for search text
+    printf( "Search text: " );
+    // skip any intial newline character
+    if(( ch = getchar()) == '\n' ) {
+        ch = getchar();
+    }
+    // read text initially into a buffer
+    i = 0;
+    while((i < MAX_TEXT)&&(ch != '\n')&&(ch != EOF)) {
+        buffer[i++] = ch;
+        ch = getchar();
+    }
+    // allocate just enough space to store the string
+    length = i;
+    search = (char *)malloc((length + 1)*sizeof(char));
+    if( search == NULL ) {
+        printf("Error: could not allocate memory.\n");
+        exit( 1 );
+    }
+    // copy text from buffer into new string
+    for( i = 0; i < length; i++ ) {
+        search[i] = buffer[i];
+    } 
+    search[i] = '\0'; // add end-of-string marker
+
+    return( search );
+}
+
+// Search list for text in Task or Notes field
+void search( TDnode *head, char *search_text )
+{
+    TDnode *node = head;
+    char ori_task[MAX_LINE];
+    char ori_notes[MAX_TEXT];
+    char *task = NULL;
+    char *notes = NULL;
+    
+    while( node != NULL ){
+    
+        strcpy( ori_task, node->task );
+        strcpy( ori_notes, node->notes);  
+        
+        task = search_task( search_text, node->task );
+        notes = search_notes( search_text, node->notes );
+    
+        if( task != NULL || notes != NULL ){
+            if( task != NULL ){
+                node->task = task;
+            }
+            
+            if( notes != NULL ){
+                node->notes = notes;
+            }
+            
+            print_list( node, node, 1 );
+            
+            strcpy( node->task, ori_task );
+            strcpy( node->notes, ori_notes );            
+        }
+                        
+        node = node->next;
+    }
+}
+
+char *search_task( char *search_text, char *task )
+{
+    char *p = strcasestr( task, search_text );
+    
+    int i;
+    
+    if( p != NULL ){
+        for( i=0; i<strlen(search_text); i++ ){
+            if( islower( p[i] ) > 0 ){
+                p[i] = toupper( p[i] );
+            }
+        }
+        
+        char *next = p+strlen(search_text);
+        
+        if( search_task( search_text, next ) == NULL ){
+            return task;
+        }
+        
+        else{        
+            return task;
+        }            
+    }
+    
+    else{
+        return p;
+    }
+}
+
+char *search_notes( char *search_text, char *notes )
+{
+    char *p = strcasestr( notes, search_text );
+    
+    int i;
+    
+    if( p != NULL ){
+        for( i=0; i<strlen(search_text); i++ ){
+            if( islower( p[i] ) > 0 ){
+                p[i] = toupper( p[i] );
+            }
+        }
+        
+        char *next = p+strlen(search_text);
+        
+        if( search_notes( search_text, next )  == NULL ){
+            return notes;
+        }
+        
+        else{        
+            return notes;
+        }            
+    }
+    
+    return p ;
+}
 // INSERT NEW FUNCTIONS, AS APPROPRIATE

@@ -8,9 +8,11 @@
 *
 *   UNSW Session 2, 2013
 **********************************************************************/
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 #define MAX_LINE     128
 #define MAX_TEXT    4096
@@ -64,3 +66,10 @@ TDnode *change_task( TDnode* current );
 TDnode *change_notes( TDnode* current );
 TDnode *change_date( TDnode* head, TDnode* current );
 TDnode *change_class( TDnode* head, TDnode* current );
+
+// Stage 5 - Search the list
+char *store_text( void );
+void search( TDnode *head, char *search_text );
+char *search_task( char *search_text, char *task );
+char *search_notes( char *search_text, char *notes );
+
