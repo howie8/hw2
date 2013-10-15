@@ -205,25 +205,12 @@ int scan_date( Date* d )
         sscanf(s,"%d/%d/%d",&d->day,&d->month,&d->year)==3);
 }
 
-// Free all the memory occupied by a linked list of ToDo items.
-void free_list( TDnode *head )
-{
-    TDnode *node;
-
-    while( head != NULL ) {
-        node = head;
-        head = head->next;
-        free( node->task );
-        free( node->notes );
-        free( node );
-    }
-}
-
 /**********************************************************************
 *   MAIN FUNCTION
 **********************************************************************/
 int main( void )
 {
+    StackNode* stack = NULL;
     TDnode* list = NULL;
     TDnode* node = NULL;
     int ch;
@@ -231,6 +218,8 @@ int main( void )
     int toggle = 0;
     TDnode* current = list;
     char *search_text;
+
+    stack = push( current, stack, '\0' );
 
     // enter a loop, reading and executing commands from the user
     while( 1 ) {
@@ -260,6 +249,7 @@ int main( void )
                 list = add_node( list, node );
 
                 current = node;
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -268,18 +258,22 @@ int main( void )
             * move Forward
             **********************************************************/
             case 'f': case 'F':
-                current = forward( list, current );
-                print_list( list, current, toggle );
-                
+                if(current != forward( list, current )) {
+                    current = forward( list, current );
+                    print_list( list, current, toggle );
+                };
+                stack = push( current, stack, op );
             break;
 
             /**********************************************************
             * move Back
             **********************************************************/
             case 'b': case 'B':
-                current = back( list, current );
-                print_list( list, current, toggle );
-                        
+                if(current != back( list, current )) {
+                    current = back( list, current );
+                    print_list( list, current, toggle );
+                };
+                stack = push( current, stack, op );
             break;
 
             /**********************************************************
@@ -287,6 +281,7 @@ int main( void )
             **********************************************************/
             case 'p': case 'P':
                toggle = 1;
+               stack = push( current, stack, op );
                print_list( list, current, toggle );
             break;
 
@@ -295,6 +290,7 @@ int main( void )
             **********************************************************/
             case 'l': case 'L':
                toggle = 0;
+               stack = push( current, stack, op );
                print_list( list, current, toggle );
             break;
 
@@ -303,7 +299,7 @@ int main( void )
             **********************************************************/
             case 'r': case 'R':
                 list = remove_node( list, current );
-                
+                TDnode* tmp = current;
                 if( list == NULL ){
                     current = NULL;
                 }
@@ -321,7 +317,9 @@ int main( void )
                 else{
                     current = current->next;
                 }
-                
+                free( tmp );
+
+                stack = push( current, stack, op );
                 print_list( list, current, toggle );
                 
             break;
@@ -329,54 +327,88 @@ int main( void )
             /**********************************************************
             * change Task
             **********************************************************/
-            case 't': case 'T':
-                current = change_task( current );                
+            case 't': case 'T':              
+                current = change_task( current );
+		        stack = push( current, stack, op );                
                 print_list( list, current, toggle );
-                
             break;
 
             /**********************************************************
             * change Date
             **********************************************************/
             case 'd': case 'D':
-                list = change_date( list, current );             
+                list = change_date( list, current );  
+                stack = push( current, stack, op );           
                 print_list( list, current, toggle );
-                
             break;
 
             /**********************************************************
             * change Class
             **********************************************************/
-            case 'c': case 'C':
-                list = change_class( list, current );             
+            case 'c': case 'C':                
+                list = change_class( list, current );
+                stack = push( current, stack, op );             
                 print_list( list, current, toggle );
-                
             break;
 
             /**********************************************************
             * change Notes
             **********************************************************/
             case 'n': case 'N':
-                current = change_notes( current );                
+                current = change_notes( current );
+                stack = push( current, stack, op );                
                 print_list( list, current, toggle );
-                
             break;
 
             /**********************************************************
             * Search
             **********************************************************/
-            case 's': case 'S':                    
+             case 's': case 'S':                    
                 search_text = store_text();
                 
                 search( list, search_text );
-                
             break;
 
             /**********************************************************
             * Undo
             **********************************************************/
             case 'u': case 'U':
+                if( list != NULL ){
+                    TDnode* undone = undo( stack, list, current );
+                    if( undone == NULL ) {
+                        stack = pop( stack );
+                        current = stack->current;
+                    }
+                    else {                    
+                        list = undone;
+                        if( stack->command == 'r' ) {
+                            TDnode* new_node = (TDnode*)malloc(sizeof(TDnode));
 
+                            new_node->task = stack->next->data.task;
+                            new_node->date = stack->next->data.date;
+                            new_node->class = stack->next->data.class;
+                            new_node->notes = stack->next->data.notes;
+
+                            list = add_node( list, new_node );
+                            current = new_node;
+
+                            stack = pop( stack );
+                        }
+                        else if( stack->command == 'a' ) {
+                            stack = pop( stack );
+                            TDnode* tmp = current;
+                            current = stack->current;
+                            free( tmp->notes );
+                            free( tmp->task );
+                            free( tmp );
+                        }
+                        else {
+                            stack = pop( stack );
+                            current = stack->current;
+                        }
+                        print_list( list, current, toggle );
+                    }
+                }
             break;
 
             /**********************************************************
@@ -384,6 +416,7 @@ int main( void )
             **********************************************************/
             case 'h': case 'H': // Help
                 print_help();
+                stack = push( current, stack, op );
             break;
 
             /**********************************************************
@@ -391,6 +424,7 @@ int main( void )
             **********************************************************/
             case 'q': case 'Q': // Quit
                 free_list( list );
+                free_stack( stack );
                 printf("Bye!\n");
             return 0;
 

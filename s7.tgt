@@ -1,0 +1,77 @@
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+->06/05/04 M add milk
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+  06/05/04 M add milk
+->06/05/04 L add sugar
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Task:  
+
+  06/05/04 M add milk
+->06/05/04 L add honey
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+  06/05/04 M add milk
+->06/05/04 L add sugar
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Date:  
+
+->03/02/01 L add sugar
+  06/05/04 M add milk
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+  06/05/04 M add milk
+->06/05/04 L add sugar
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Class: 
+
+->06/05/04 H add sugar
+  06/05/04 M add milk
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+  06/05/04 M add milk
+->06/05/04 L add sugar
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  add sugar
+Date:  06/05/04
+Class: Low
+Notes: one lump or two?
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Notes: 
+
+Task:  add sugar
+Date:  06/05/04
+Class: Low
+Notes: not too much!
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  add sugar
+Date:  06/05/04
+Class: Low
+Notes: one lump or two?
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  add milk
+Date:  06/05/04
+Class: Medium
+Notes: 
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  add sugar
+Date:  06/05/04
+Class: Low
+Notes: one lump or two?
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Bye!

@@ -1,0 +1,31 @@
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+->01/02/00 H buckle my shoe
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Enter H,M,L or C: Enter H,M,L or C: Enter H,M,L or C: Enter H,M,L or C: Enter H,M,L or C: Enter H,M,L or C: Notes: 
+
+  01/02/00 H buckle my shoe
+->03/04/00 M knock at the door
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+->01/02/00 H buckle my shoe
+  03/04/00 M knock at the door
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  buckle my shoe
+Date:  01/02/00
+Class: High
+Notes: 
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  knock at the door
+Date:  03/04/00
+Class: Medium
+Notes: 
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Bye!

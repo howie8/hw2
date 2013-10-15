@@ -11,6 +11,32 @@
 
 #include "tdlist.h"
 
+// Free all the memory occupied by a linked list of ToDo items.
+void free_list( TDnode* head )
+{
+    TDnode* node;
+
+    while( head != NULL ) {
+        node = head;
+        head = head->next;
+        free( node->task );
+        free( node->notes );
+        free( node );
+    }
+}
+
+// Free all the memory occupied by a stack
+void free_stack( StackNode* head )
+{
+    StackNode* node = head;
+    StackNode* tmp;
+
+    while( node != NULL ) {
+        tmp = node;
+        node = node->next;
+        free( tmp );  
+    }
+}
 /**********************************************************************
 *   STAGE 2 - Adding, checking and listing items
 **********************************************************************/
@@ -82,8 +108,6 @@ int compare( TDnode* node1, TDnode* node2 )
     else {
         return 0;
     }
-
-    return -1;
 }
 
 // Add item
@@ -129,7 +153,8 @@ void print_list( TDnode* head, TDnode* current, int toggle )
     if( head != NULL ){
         TDnode* next_node = head;
         char* class;
-   
+    
+        printf("\n\n");
         if( toggle == 0 ){
             while( next_node != NULL ){
                 if( next_node == current){
@@ -139,7 +164,7 @@ void print_list( TDnode* head, TDnode* current, int toggle )
                 else{
                     printf( "  " );
                 }
-      
+
                 if( next_node->class == 1 ){
                    class = "H";
                 }
@@ -156,7 +181,7 @@ void print_list( TDnode* head, TDnode* current, int toggle )
                     class = "C";
                 }
       
-                printf( "%d/%d/%d ", next_node->date.day, next_node->date.month, next_node->date.year );
+                printf( "%02d/%02d/%02d ", next_node->date.day, next_node->date.month, next_node->date.year );
                 printf( "%s %s\n", class, next_node->task );
                 next_node = next_node->next;
             }
@@ -179,9 +204,10 @@ void print_list( TDnode* head, TDnode* current, int toggle )
                 class = "Completed";
             }
       
-            printf( "Task:  %s\nDate:  %d/%d/%d\n", current->task, current->date.day, current->date.month, current->date.year );
+            printf( "Task:  %s\nDate:  %02d/%02d/%02d\n", current->task, current->date.day, current->date.month, current->date.year );
             printf( "Class: %s\nNotes: %s\n", class, current->notes );
         }
+        printf("\n");
     }
 }
 
@@ -226,15 +252,13 @@ TDnode* remove_node( TDnode* head, TDnode* current )
         
         else{
             TDnode* prev_node = head;
-        
+           
             while( prev_node->next != current ){
                 prev_node = prev_node->next;
             }
-        
             prev_node->next = current->next;
         }
     }
-    
     return head ;
 }
 
@@ -409,4 +433,105 @@ char *search_notes( char *search_text, char *notes )
     
     return p ;
 }
-// INSERT NEW FUNCTIONS, AS APPROPRIATE
+
+
+/**********************************************************************
+*   STAGE 6 - Undo
+**********************************************************************/
+// Push a stack node
+StackNode* push( TDnode* current, StackNode* head, char command )
+{
+    StackNode* new_node = (StackNode*)malloc( sizeof( StackNode ));
+    if( new_node == NULL ) {
+        fprintf( stderr, "Error: memory allocation failed.\n");
+        exit( 1 );
+    }
+
+    new_node->current = current;
+    new_node->command = tolower( command );
+    new_node->next    = head;
+    
+    if( current != NULL ) {
+        new_node->data.task  = current->task;
+        new_node->data.date  = current->date;
+        new_node->data.class = current->class;
+        new_node->data.notes = current->notes;
+    }
+
+    return new_node;
+}
+
+// Pop a stack node
+StackNode* pop( StackNode* head )
+{
+    StackNode* tmp;
+    
+    if( head != NULL ) {
+        tmp = head;
+        head = head->next;
+        free( tmp );        
+    }    
+    return head;
+}
+
+// Undo
+TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
+{
+    if( stack->command != '\0' ) {
+        int op = stack->command;
+
+        switch( op ) {
+            case 'a':
+                list = remove_node( list, current );
+            break;
+
+            case 'f':
+                if( current == stack->next->current ) {
+                    return NULL;
+                }
+                else {
+                    current = back( list, current );
+                }
+            break;
+            
+            case 'b':
+                if( current == stack->next->current ) {
+                    return NULL;
+                }
+                else {
+                    current = forward( list, current );
+                }
+            break;
+
+            case 't':
+                list = remove_node( list, current );
+                current->task = stack->next->data.task;
+                list = add_node( list, current );
+            break;
+
+            case 'd':
+                list = remove_node( list, current );
+                current->date = stack->next->data.date;
+                list = add_node( list, current );
+            break;
+
+            case 'c':
+                list = remove_node( list, current );
+                current->class = stack->next->data.class;
+                list = add_node( list, current );
+            break;
+
+            case 'n':
+                list = remove_node( list, current );
+                current->notes = stack->next->data.notes;
+                list = add_node( list, current );
+            break;
+            
+            default:
+
+            break;
+        }
+    }
+
+    return list;
+}

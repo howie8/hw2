@@ -1,0 +1,43 @@
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+->04/05/06 M Sing a song of sixpence
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+  04/05/06 M Sing a song of sixpence
+->07/08/09 L Row, row, row your boat
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+->01/02/03 H Rock-a-bye, baby
+  04/05/06 M Sing a song of sixpence
+  07/08/09 L Row, row, row your boat
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Search text: 
+Task:  ROck-a-bye, baby
+Date:  01/02/03
+Class: High
+Notes: on the tree-top.
+When the wind blows
+the cradle will ROck.
+
+Task:  ROw, ROw, ROw your boat
+Date:  07/08/09
+Class: Low
+Notes: gently down the stream.
+Merrily, merrily, merrily, merrily
+life is but a dream.
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  Rock-a-bye, baby
+Date:  01/02/03
+Class: High
+Notes: on the tree-top.
+When the wind blows
+the cradle will rock.
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Bye!

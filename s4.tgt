@@ -1,0 +1,70 @@
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+->01/04/75 H Make sure the Prince doesn't leave the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+  01/04/75 H Make sure the Prince doesn't leave the room
+->02/04/75 L Keep him in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+  01/04/75 H Make sure the Prince doesn't leave the room
+->02/04/75 M Stay in the room
+  02/04/75 L Keep him in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+Task:  Date:  Class: Notes: 
+
+  01/04/75 H Make sure the Prince doesn't leave the room
+->01/04/75 L Stop him entering the room
+  02/04/75 M Stay in the room
+  02/04/75 L Keep him in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+  01/04/75 H Make sure the Prince doesn't leave the room
+->02/04/75 M Stay in the room
+  02/04/75 L Keep him in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+  01/04/75 H Make sure the Prince doesn't leave the room
+  02/04/75 M Stay in the room
+->02/04/75 L Keep him in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Class: 
+
+  01/04/75 H Make sure the Prince doesn't leave the room
+->02/04/75 H Keep him in the room
+  02/04/75 M Stay in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+->01/04/75 H Make sure the Prince doesn't leave the room
+  02/04/75 H Keep him in the room
+  02/04/75 M Stay in the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Date:  
+
+  02/04/75 H Keep him in the room
+  02/04/75 M Stay in the room
+->03/04/75 H Make sure the Prince doesn't leave the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Notes: 
+
+  02/04/75 H Keep him in the room
+  02/04/75 M Stay in the room
+->03/04/75 H Make sure the Prince doesn't leave the room
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): 
+
+Task:  Make sure the Prince doesn't leave the room
+Date:  03/04/75
+Class: High
+Notes: until I get back.
+
+Enter command (A,F,B,P,L,R,T,D,C,N,S,U,Q, H for Help): Bye!

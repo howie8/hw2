@@ -17,8 +17,9 @@
 #define MAX_LINE     128
 #define MAX_TEXT    4096
 
-typedef struct  date  Date;
-typedef struct tdnode TDnode;
+typedef struct 	    date Date;
+typedef struct    tdnode TDnode;
+typedef struct stacknode StackNode;
 
 struct date 
 {
@@ -29,11 +30,20 @@ struct date
 
 struct tdnode 
 {
-    char* task;
-    Date  date;
-    int   class;
-    char* notes;
+      char* task;
+      Date  date;
+       int  class;
+      char* notes;
     TDnode* next;
+};
+
+struct stacknode
+{
+       TDnode* current;
+         char  command;
+    StackNode* next;
+       TDnode  data;
+
 };
 
 /**********************************************************************
@@ -43,9 +53,9 @@ struct tdnode
 // Stage 0 - Provided Code
   void  free_list( TDnode* list );
   void  print_help();
-TDnode *get_node(  void );
-  char *get_task(  void );
-  char *get_notes( void );
+TDnode* get_node(  void );
+  char* get_task(  void );
+  char* get_notes( void );
    int  get_class( void );
   void  get_date( Date *d );
    int  scan_date( Date *d );
@@ -57,8 +67,8 @@ TDnode *add_node( TDnode* head, TDnode* node );
 
 // Stage 3 - Navigating the List
   void  print_list( TDnode* head, TDnode* current, int toggle );
-TDnode *forward( TDnode* head, TDnode* current);
-TDnode *back( TDnode* head, TDnode* current);
+TDnode* forward( TDnode* head, TDnode* current);
+TDnode* back( TDnode* head, TDnode* current);
 
 // Stage 4 - Removing or Changing items
 TDnode *remove_node( TDnode* head, TDnode* current );
@@ -69,7 +79,12 @@ TDnode *change_class( TDnode* head, TDnode* current );
 
 // Stage 5 - Search the list
 char *store_text( void );
-void search( TDnode *head, char *search_text );
+void  search( TDnode *head, char *search_text );
 char *search_task( char *search_text, char *task );
 char *search_notes( char *search_text, char *notes );
 
+// Stage 6 - Undo
+     void  free_stack( StackNode* head );
+StackNode* push( TDnode* current, StackNode* head, char command );
+StackNode* pop( StackNode* head );
+   TDnode* undo( StackNode* stack, TDnode* list, TDnode* current );
