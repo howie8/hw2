@@ -19,6 +19,8 @@ void free_list( TDnode* head )
     while( head != NULL ) {
         node = head;
         head = head->next;
+        free( node->task );
+        free( node->notes );
         free( node );
     }
 }
@@ -257,7 +259,6 @@ TDnode* remove_node( TDnode* head, TDnode* current )
             prev_node->next = current->next;
         }
     }
-    
     return head ;
 }
 
@@ -319,7 +320,7 @@ StackNode* push( TDnode* current, StackNode* head, char command )
     }
 
     new_node->current = current;
-    new_node->command = command;
+    new_node->command = tolower( command );
     new_node->next    = head;
     
     if( current != NULL ) {
@@ -352,11 +353,11 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
         int op = stack->command;
 
         switch( op ) {
-            case 'a': case 'A':
+            case 'a':
                 list = remove_node( list, current );
             break;
 
-            case 'f': case 'F':
+            case 'f':
                 if( current == stack->next->current ) {
                     return NULL;
                 }
@@ -365,7 +366,7 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
                 }
             break;
             
-            case 'b': case 'B':
+            case 'b':
                 if( current == stack->next->current ) {
                     return NULL;
                 }
@@ -374,29 +375,29 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
                 }
             break;
 
-            case 'r': case 'R':
+            case 'r':
 
             break;
 
-            case 't': case 'T':
+            case 't':
                 list = remove_node( list, current );
                 current->task = stack->next->data.task;
                 list = add_node( list, current );
             break;
 
-            case 'd': case 'D':
+            case 'd':
                 list = remove_node( list, current );
                 current->date = stack->next->data.date;
                 list = add_node( list, current );
             break;
 
-            case 'c': case 'C':
+            case 'c':
                 list = remove_node( list, current );
                 current->class = stack->next->data.class;
                 list = add_node( list, current );
             break;
 
-            case 'n': case 'N':
+            case 'n':
                 list = remove_node( list, current );
                 current->notes = stack->next->data.notes;
                 list = add_node( list, current );
@@ -410,9 +411,3 @@ TDnode* undo( StackNode* stack, TDnode* list, TDnode* current )
 
     return list;
 }
-
-
-
-
-
-// INSERT NEW FUNCTIONS, AS APPROPRIATE

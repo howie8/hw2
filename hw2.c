@@ -298,7 +298,7 @@ int main( void )
             **********************************************************/
             case 'r': case 'R':
                 list = remove_node( list, current );
-                
+                TDnode* tmp = current;
                 if( list == NULL ){
                     current = NULL;
                 }
@@ -316,6 +316,7 @@ int main( void )
                 else{
                     current = current->next;
                 }
+                free( tmp );
 
                 stack = push( current, stack, op );
                 print_list( list, current, toggle );
@@ -378,7 +379,7 @@ int main( void )
                     }
                     else {                    
                         list = undone;
-                        if( stack->command=='r'||stack->command=='R') {
+                        if( stack->command == 'r' ) {
                             TDnode* new_node = (TDnode*)malloc(sizeof(TDnode));
 
                             new_node->task = stack->next->data.task;
@@ -390,6 +391,14 @@ int main( void )
                             current = new_node;
 
                             stack = pop( stack );
+                        }
+                        else if( stack->command == 'a' ) {
+                            stack = pop( stack );
+                            TDnode* tmp = current;
+                            current = stack->current;
+                            free( tmp->notes );
+                            free( tmp->task );
+                            free( tmp );
                         }
                         else {
                             stack = pop( stack );
